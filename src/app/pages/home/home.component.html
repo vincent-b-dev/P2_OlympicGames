@@ -3,7 +3,7 @@
   <div id="count">
     <div class="count count1">
       <h3>Number of JOs</h3>
-      <p>total</p>
+      <p>{{ totalJo }}</p>
     </div>
     <div class="count">
       <h3>Number of countries</h3>
@@ -11,3 +11,14 @@
     </div>
   </div>
 </header>
+
+<div id="charts">
+  <ngx-charts-pie-chart [results]="data" [scheme]="colorScheme" [labels]="true">
+    <ng-template let-model="model">
+      <h1>
+        {{ model.name }}
+      </h1>
+      <h2>{{ model.value }} Medals</h2>
+    </ng-template>
+  </ngx-charts-pie-chart>
+</div>

@@ -1,26 +1,28 @@
 header{
     max-width: 40em;
     margin: auto;
+    margin-top: 2em;
 }
 
 h1{
     margin: auto;
-    padding: 10px;
+    padding: 5px 15px;
     width: fit-content;
     margin-bottom: 1em;
     border-radius: 10px;
-    color: aliceblue;
-    background-color: #0D685F;
+    color: white;
+    background-color: hwb(186 27% 48%);
     font-weight:100;
 }
 
 h3{
     font-weight: 100;
+    color: #666666;
 }
 
 #count{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .count1 {
@@ -28,14 +30,38 @@ h3{
 }
 
 .count {
-    border: 2px solid #0D685F;
-    width: 15em;
+    border: 2px solid hwb(174 31% 41%);
     border-radius: 10px;
     text-align: center;
     font-weight: 100;
+    padding: 8px 10px;
 }
 
 p{
     font-weight: 900;
     font-size: large;
+    
 }
+
+#charts{
+    height: 40em;
+}
+
+
+.custom-label-text {
+    background-color: #00b400;
+    color: #fff;
+  }
+
+
+  @media screen  and (max-width: 640px)  {
+    #charts{
+        height: 30em;
+    }
+  }
+
+  @media screen  and (max-width: 540px)  {
+    #charts{
+        height: 20em;
+    }
+  }
