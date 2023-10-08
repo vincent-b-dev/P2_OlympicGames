@@ -14,7 +14,7 @@ export class OlympicService {
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
-    //Type Olympic ajouté
+    ///////////////Type Olympic ajouté///////////////////////
     return this.http.get<Olympic>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
