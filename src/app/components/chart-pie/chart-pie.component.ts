@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Olympic from 'src/app/core/models/Olympic';
-import DataChart from '../../core/models/dataChart';
+import DataChart from '../../core/models/dataPieChart';
 
 @Component({
   selector: 'app-chart-pie',
@@ -27,14 +27,14 @@ export class ChartPieComponent {
           return (total += participation.participations.length);
         }, 0);
 
-        this.dataChart = elements.map((data: any) => {
+        this.dataChart = elements.map((el) => {
           let totalMedals = 0;
           // total medals for each participation
-          data.participations.forEach((participation: any) => {
-            totalMedals += participation.medalsCount;
+          el.participations.forEach((element) => {
+            totalMedals += element.medalsCount;
           });
           return {
-            name: data.country,
+            name: el.country,
             value: totalMedals,
           };
         });

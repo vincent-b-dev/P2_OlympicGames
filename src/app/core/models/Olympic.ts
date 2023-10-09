@@ -12,5 +12,5 @@ import Participation from './Participation';
 export default class olympic {
   id: number;
   country: string;
-  participations: Participation;
+  participations: Participation[];
 }
