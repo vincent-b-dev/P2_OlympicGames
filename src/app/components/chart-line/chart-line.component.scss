@@ -23,14 +23,9 @@ h3{
 
 #count{
     display: flex;
-    justify-content: center;
-    margin-left: 2em;
+    justify-content: space-around;
 }
 
-.count1 {
-    margin-right: 3.5em;
-
-}
 
 .count {
     padding: 8px 14px;
@@ -47,33 +42,12 @@ p{
     
 }
 
-#charts{
-    height: 40em;
+
+  @media screen  and (max-width: 580px)  {
+.count{
+    font-size: 10px;
 }
-
-.red-tooltip {
-    background-color:hwb(186 27% 48%); 
-    padding: 7px;
-    border-radius: 5px; 
-    text-align: center; 
-    font-size: 1.2em;
-  }
-
-#tooltip h3  {
-        color: white !important;
-        padding: 0.3em;
-  }
-
-
-
-  @media screen  and (max-width: 640px)  {
-    #charts{
-        height: 30em;
-    }
-  }
-
-  @media screen  and (max-width: 540px)  {
-    #charts{
-        height: 20em;
-    }
+h1 {
+    font-size: 1.5em;
+}
   }

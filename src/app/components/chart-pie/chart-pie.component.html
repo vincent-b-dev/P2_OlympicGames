@@ -1,0 +1,28 @@
+<header>
+  <h1>Medals per Country</h1>
+  <div id="count">
+    <div class="count count1">
+      <h3>Number of JOs</h3>
+      <p>{{ totalJo }}</p>
+    </div>
+    <div class="count">
+      <h3>Number of countries</h3>
+      <p>{{ (olympics$ | async)?.length }}</p>
+    </div>
+  </div>
+</header>
+
+<div id="charts">
+  <ngx-charts-pie-chart
+    [results]="dataChart"
+    [scheme]="colorScheme"
+    [labels]="true"
+  >
+    <ng-template #tooltipTemplate let-model="model">
+      <div id="tooltip" class="red-tooltip">
+        <h3>{{ model.name }}</h3>
+        <h3>medals {{ model.value }}</h3>
+      </div>
+    </ng-template>
+  </ngx-charts-pie-chart>
+</div>
