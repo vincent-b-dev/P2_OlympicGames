@@ -13,10 +13,10 @@ export class ChartPieComponent {
   public olympics$: Olympic[];
   totalJo: number;
   dataChart: DataChart[];
-  colorScheme: string = 'cool'; /*any = {
-    domain: ['red', 'green', '#C7B42C', '#AAAAAA'], //set the color pie
-  };*/
-
+  colorScheme: any = {
+    domain: ['#956065', '#b8cbe7', '#89a1db', '#793d52', '#9780a1'],
+  };
+  //italy france gezrmany unitedspain ,
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
