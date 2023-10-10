@@ -5,8 +5,13 @@ header{
     margin-bottom: 3em;
 }
 
+.title{
+    display: flex;
+    justify-content: center;
+}
+
 h1{
-    margin: auto;
+    margin-right: 5px;
     padding: 5px 15px;
     width: fit-content;
     margin-bottom: 1em;
