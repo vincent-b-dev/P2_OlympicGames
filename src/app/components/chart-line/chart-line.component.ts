@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/dataLineChart';
 
@@ -20,14 +21,10 @@ export class ChartLineComponent implements OnInit {
   animations: boolean = true;
   xAxis: boolean = true;
   yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Dates';
-  timeline: boolean = true;
 
   colorScheme = '#5AA454';
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympicService.getOlymppicById(this.id).subscribe((result) => {
@@ -55,7 +52,8 @@ export class ChartLineComponent implements OnInit {
             series: dataSeriesChart,
           },
         ];
-        console.log(this.dataChart);
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }

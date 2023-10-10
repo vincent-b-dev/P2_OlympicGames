@@ -1,6 +1,6 @@
 <header>
   <div class="title">
-    <h1>{{ data.country }}</h1>
+    <h1 *ngIf="data">{{ data.country }}</h1>
     <a routerLink="/">Back</a>
   </div>
   <div id="count">
@@ -19,12 +19,7 @@
   </div>
 </header>
 <div id="charts">
-  <ngx-charts-line-chart
-    [yAxis]="showYAxisLabel"
-    [xAxis]="showYAxisLabel"
-    [legendTitle]="'date'"
-    [results]="dataChart"
-  >
+  <ngx-charts-line-chart [yAxis]="xAxis" [xAxis]="yAxis" [results]="dataChart">
   </ngx-charts-line-chart>
 </div>
 <div><h3 id="date">Dates</h3></div>
