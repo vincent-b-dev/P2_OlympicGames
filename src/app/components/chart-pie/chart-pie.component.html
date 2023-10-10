@@ -7,7 +7,7 @@
     </div>
     <div class="count">
       <h3>Number of countries</h3>
-      <p>{{ (olympics$ | async)?.length }}</p>
+      <p *ngIf="olympics$">{{ olympics$.length }}</p>
     </div>
   </div>
 </header>
@@ -17,6 +17,7 @@
     [results]="dataChart"
     [scheme]="colorScheme"
     [labels]="true"
+    (select)="goToDetail($event)"
   >
     <ng-template #tooltipTemplate let-model="model">
       <div id="tooltip" class="red-tooltip">

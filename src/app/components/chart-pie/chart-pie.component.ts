@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Olympic from 'src/app/core/models/Olympic';
 import DataChart from '../../core/models/dataPieChart';
@@ -10,18 +10,19 @@ import DataChart from '../../core/models/dataPieChart';
   styleUrls: ['./chart-pie.component.scss'],
 })
 export class ChartPieComponent {
-  public olympics$: Observable<Olympic[]> = this.olympicService.getOlympics();
+  public olympics$: Olympic[];
   totalJo: number;
   dataChart: DataChart[];
   colorScheme: string = 'cool'; /*any = {
     domain: ['red', 'green', '#C7B42C', '#AAAAAA'], //set the color pie
   };*/
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympicService.getOlympics().subscribe((elements) => {
       if (elements && elements.length > 0) {
+        this.olympics$ = elements;
         // total participation
         this.totalJo = elements.reduce((total: number, participation: any) => {
           return (total += participation.participations.length);
@@ -40,5 +41,14 @@ export class ChartPieComponent {
         });
       }
     });
+  }
+
+  goToDetail(event: any) {
+    const selectCountry = this.olympics$.find(
+      (olympic) => olympic.country === event.name
+    );
+    if (selectCountry) {
+      this.router.navigate([`/detail/${selectCountry.id}`]);
+    }
   }
 }
