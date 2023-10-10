@@ -11,7 +11,7 @@ h1{
     margin-bottom: 1em;
     border-radius: 10px;
     color: white;
-    background-color: hwb(186 27% 48%);
+    background-color:#04838f;
     font-weight:100;
     letter-spacing: 2px;
 }
@@ -34,7 +34,7 @@ h3{
 
 .count {
     padding: 8px 14px;
-    border: 2px solid hwb(174 31% 41%);
+    border: 2px solid #04838f;
     border-radius: 10px;
     text-align: center;
     font-weight: 100;
@@ -52,7 +52,7 @@ p{
 }
 
 .red-tooltip {
-    background-color:hwb(186 27% 48%); 
+    background-color:#04838f; 
     padding: 7px;
     border-radius: 5px; 
     text-align: center; 
@@ -78,8 +78,11 @@ p{
     }
   }
 
-  @media screen  and (max-width: 540px)  {
+  @media screen  and (max-width: 575px)  {
     #charts{
         height: 20em;
+    }
+    .count2 {
+        margin-right: 30px;
     }
   }
