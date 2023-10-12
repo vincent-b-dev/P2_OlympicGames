@@ -9,7 +9,7 @@ example of an olympic country:
 */
 import Participation from './Participation';
 
-export default class olympic {
+export default interface Olympic {
   id: number;
   country: string;
   participations: Participation[];

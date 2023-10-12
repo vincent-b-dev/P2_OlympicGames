@@ -1,7 +1,9 @@
 header{
     max-width: 40em;
     margin: auto;
+  
     margin-top: 2em;
+    
 }
 
 h1{
@@ -65,7 +67,6 @@ p{
   }
 
 
-
   @media screen  and (max-width: 640px)  {
     #charts{
         height: 30em;
@@ -86,3 +87,4 @@ p{
         margin-right: 30px;
     }
   }
+

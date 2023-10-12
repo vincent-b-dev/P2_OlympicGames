@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import DataLineChart from 'src/app/core/models/dataLineChart';
+import DataLineChart from 'src/app/core/models/data-line-chart';
 
 @Component({
   selector: 'app-chart-line',
@@ -9,12 +9,12 @@ import DataLineChart from 'src/app/core/models/dataLineChart';
   styleUrls: ['./chart-line.component.scss'],
 })
 export class ChartLineComponent implements OnInit {
-  @Input() id: number;
+  @Input() id!: number;
   data: any;
-  dataChart: DataLineChart[];
-  totalMedals: number;
-  totalAthletes: number;
-  totalParticipations: number;
+  dataChart!: DataLineChart[];
+  totalMedals!: number;
+  totalAthletes!: number;
+  totalParticipations!: number;
 
   // options
   showLabels: boolean = true;

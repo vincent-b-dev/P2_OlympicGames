@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./country-details.component.scss'],
 })
 export class CountryDetailsComponent implements OnInit {
-  paramId: number;
+  paramId!: number;
 
   constructor(private route: ActivatedRoute) {}
 

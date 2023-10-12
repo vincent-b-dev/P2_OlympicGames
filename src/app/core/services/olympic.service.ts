@@ -28,11 +28,12 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
-  getOlymppicById(id: number) {
+  //rajouter un type de retour
+  getOlymppicById(id: number): Observable<Olympic | undefined> {
     return this.olympics$.pipe(
       map((element) => element.find((olympic) => olympic.id === id))
     );
