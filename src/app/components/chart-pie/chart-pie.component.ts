@@ -14,6 +14,8 @@ export class ChartPieComponent implements OnDestroy {
   olympics$!: Olympic[];
   totalJo!: number;
   dataChart!: DataChart[];
+  test: string = 'test';
+
   colorScheme: any = {
     domain: ['#956065', '#b8cbe7', '#89a1db', '#793d52', '#9780a1'],
   };
