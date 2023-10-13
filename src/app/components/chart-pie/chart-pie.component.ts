@@ -70,8 +70,8 @@ export class ChartPieComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.olympics$ && this.getOlympicsData().unsubscribe();
-    this.totalJo && this.getTotalJo().unsubscribe();
-    this.dataChart && this.getDataChart().unsubscribe();
+    this.getOlympicsData()?.unsubscribe();
+    this.getTotalJo()?.unsubscribe();
+    this.getDataChart()?.unsubscribe();
   }
 }
