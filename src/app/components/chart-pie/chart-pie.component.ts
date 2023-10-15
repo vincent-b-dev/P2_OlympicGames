@@ -15,10 +15,13 @@ export class ChartPieComponent implements OnDestroy {
   totalJo!: number;
   dataChart!: DataChart[];
   test: string = 'test';
-
-  colorScheme: any = {
+  colorScheme = 'cool';
+  /*colorScheme: any = {
     domain: ['#956065', '#b8cbe7', '#89a1db', '#793d52', '#9780a1'],
-  };
+  };*/
+
+  subscription: Subscription = new Subscription();
+
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
@@ -27,36 +30,42 @@ export class ChartPieComponent implements OnDestroy {
     this.getDataChart();
   }
 
-  getOlympicsData(): Subscription {
-    return this.olympicService
-      .getOlympics()
-      .subscribe((result) => (this.olympics$ = result));
+  getOlympicsData(): void {
+    this.subscription.add(
+      this.olympicService
+        .getOlympics()
+        .subscribe((result) => (this.olympics$ = result))
+    );
   }
 
-  getTotalJo(): Subscription {
-    return this.olympicService
-      .getOlympics()
-      .pipe(
-        map((elements) =>
-          elements.reduce((acc, val) => acc + val.participations.length, 0)
+  getTotalJo(): void {
+    this.subscription.add(
+      this.olympicService
+        .getOlympics()
+        .pipe(
+          map((elements) =>
+            elements.reduce((acc, val) => acc + val.participations.length, 0)
+          )
         )
-      )
-      .subscribe((result) => (this.totalJo = result));
+        .subscribe((result) => (this.totalJo = result))
+    );
   }
 
-  getDataChart(): Subscription {
-    return this.olympicService.getOlympics().subscribe((elements) => {
-      this.dataChart = elements.map((el) => {
-        let totalMedals = 0;
-        el.participations.forEach((element) => {
-          totalMedals += element.medalsCount;
+  getDataChart(): void {
+    this.subscription.add(
+      this.olympicService.getOlympics().subscribe((elements) => {
+        this.dataChart = elements.map((el) => {
+          let totalMedals = 0;
+          el.participations.forEach((element) => {
+            totalMedals += element.medalsCount;
+          });
+          return {
+            name: el.country,
+            value: totalMedals,
+          };
         });
-        return {
-          name: el.country,
-          value: totalMedals,
-        };
-      });
-    });
+      })
+    );
   }
 
   goToDetail(event: { name: string; value: number; label: string }) {
@@ -70,8 +79,6 @@ export class ChartPieComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.getOlympicsData()?.unsubscribe();
-    this.getTotalJo()?.unsubscribe();
-    this.getDataChart()?.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

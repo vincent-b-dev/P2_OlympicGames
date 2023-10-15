@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/data-line-chart';
+import Olympic from 'src/app/core/models/Olympic';
 
 @Component({
   selector: 'app-chart-line',
@@ -11,7 +12,7 @@ import DataLineChart from 'src/app/core/models/data-line-chart';
 })
 export class ChartLineComponent implements OnInit, OnDestroy {
   @Input() id!: number;
-  data: any;
+  data!: Olympic;
   dataChart!: DataLineChart[];
   totalMedals!: number;
   totalAthletes!: number;
@@ -32,6 +33,8 @@ export class ChartLineComponent implements OnInit, OnDestroy {
     this.olympicSubscription = this.olympicService
       .getOlymppicById(this.id)
       .subscribe((result) => {
+        console.log('result: ', result);
+
         if (result) {
           this.data = result;
           this.totalMedals = result.participations.reduce(
