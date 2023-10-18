@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="data">
   <div class="title">
     <a routerLink="/"
       ><svg
@@ -22,12 +22,12 @@
         </g>
       </svg>
     </a>
-    <h1 *ngIf="data">{{ data.country }}</h1>
+    <h1>{{ data.country }}</h1>
   </div>
   <div id="count">
     <div class="count">
       <h3>Number of entries</h3>
-      <p>{{ data?.participations?.length }}</p>
+      <p>{{ data.participations.length }}</p>
     </div>
     <div class="count">
       <h3>Total number medals</h3>
@@ -40,7 +40,7 @@
   </div>
 </header>
 <div id="charts">
-  <ngx-charts-line-chart [yAxis]="xAxis" [xAxis]="yAxis" [results]="dataChart">
+  <ngx-charts-line-chart [yAxis]="xAxis" [xAxis]="true" [results]="dataChart">
   </ngx-charts-line-chart>
 </div>
 <div><h3 id="date">Dates</h3></div>

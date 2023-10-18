@@ -25,16 +25,12 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   xAxis: boolean = true;
   yAxis: boolean = true;
 
-  colorScheme = '#5AA454';
-
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympicSubscription = this.olympicService
       .getOlymppicById(this.id)
       .subscribe((result) => {
-        console.log('result: ', result);
-
         if (result) {
           this.data = result;
           this.totalMedals = result.participations.reduce(
@@ -66,6 +62,6 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.olympicSubscription && this.olympicSubscription.unsubscribe();
+    this.olympicSubscription?.unsubscribe();
   }
 }

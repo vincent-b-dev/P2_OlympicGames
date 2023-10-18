@@ -11,10 +11,9 @@ import DataChart from '../../core/models/data-pie-chart';
   styleUrls: ['./chart-pie.component.scss'],
 })
 export class ChartPieComponent implements OnDestroy {
-  olympics$!: Olympic[];
+  olympics!: Olympic[];
   totalJo!: number;
   dataChart!: DataChart[];
-  test: string = 'test';
   colorScheme = 'cool';
   /*colorScheme: any = {
     domain: ['#956065', '#b8cbe7', '#89a1db', '#793d52', '#9780a1'],
@@ -30,15 +29,15 @@ export class ChartPieComponent implements OnDestroy {
     this.getDataChart();
   }
 
-  getOlympicsData(): void {
+  private getOlympicsData(): void {
     this.subscription.add(
       this.olympicService
         .getOlympics()
-        .subscribe((result) => (this.olympics$ = result))
+        .subscribe((olympic) => (this.olympics = olympic))
     );
   }
 
-  getTotalJo(): void {
+  private getTotalJo(): void {
     this.subscription.add(
       this.olympicService
         .getOlympics()
@@ -47,34 +46,38 @@ export class ChartPieComponent implements OnDestroy {
             elements.reduce((acc, val) => acc + val.participations.length, 0)
           )
         )
-        .subscribe((result) => (this.totalJo = result))
+        .subscribe((totalJo) => (this.totalJo = totalJo))
     );
   }
 
-  getDataChart(): void {
+  private getDataChart(): void {
     this.subscription.add(
-      this.olympicService.getOlympics().subscribe((elements) => {
-        this.dataChart = elements.map((el) => {
-          let totalMedals = 0;
-          el.participations.forEach((element) => {
-            totalMedals += element.medalsCount;
-          });
-          return {
-            name: el.country,
-            value: totalMedals,
-          };
-        });
-      })
+      this.olympicService
+        .getOlympics()
+        .pipe(
+          map((elements) => {
+            return elements.map((el) => ({
+              name: el.country,
+              value: el.participations.reduce(
+                (acc, element) => acc + element.medalsCount,
+                0
+              ),
+            }));
+          })
+        )
+        .subscribe((dataChart) => {
+          this.dataChart = dataChart;
+        })
     );
   }
 
-  goToDetail(event: { name: string; value: number; label: string }) {
-    console.log(event);
-    const selectCountry = this.olympics$.find(
+  goToDetail(event: { name: string; value: number; label: string }): void {
+    const selectCountry = this.olympics.find(
       (olympic) => olympic.country === event.name
     );
+
     if (selectCountry) {
-      this.router.navigate([`/detail/${selectCountry.id}`]);
+      this.router.navigate(['/detail', selectCountry.id]);
     }
   }
 
