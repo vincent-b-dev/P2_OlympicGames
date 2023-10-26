@@ -71,7 +71,11 @@ export class ChartPieComponent implements OnDestroy {
     );
   }
 
-  goToDetail(event: { name: string; value: number; label: string }): void {
+  public goToDetail(event: {
+    name: string;
+    value: number;
+    label: string;
+  }): void {
     const selectCountry = this.olympics.find(
       (olympic) => olympic.country === event.name
     );
