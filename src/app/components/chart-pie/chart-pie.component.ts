@@ -28,9 +28,7 @@ export class ChartPieComponent implements OnDestroy {
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   public ngOnInit(): void {
-    this.getOlympicsData();
-    this.getTotalJo();
-    this.getDataChart();
+    this.start();
   }
 
   public ngOnDestroy() {
@@ -38,56 +36,26 @@ export class ChartPieComponent implements OnDestroy {
   }
 
   /**
-   * Récupère les données à afficher
+   * La fonction 'start' contient toutes les fonctions du service nécessaires
+   * pour le démarrage de la page d'accueil.
    */
+  private start(): void {
+    this.subscription.push(
+      this.olympicService
+        .getTotalJo()
+        .subscribe((totalJo) => (this.totalJo = totalJo))
+    );
 
-  private getOlympicsData(): void {
     this.subscription.push(
       this.olympicService
         .getOlympics()
         .subscribe((olympic) => (this.olympics = olympic))
     );
-  }
 
-  /**
-   * Tri les données et récupère le total de participations aux Jeux olympiques
-   */
-
-  private getTotalJo(): void {
     this.subscription.push(
       this.olympicService
-        .getOlympics()
-        .pipe(
-          map((elements) =>
-            elements.reduce((acc, val) => acc + val.participations.length, 0)
-          )
-        )
-        .subscribe((totalJo) => (this.totalJo = totalJo))
-    );
-  }
-
-  /**
-   * Récupère les données pour les afficher dans le graphique
-   */
-
-  private getDataChart(): void {
-    this.subscription.push(
-      this.olympicService
-        .getOlympics()
-        .pipe(
-          map((elements) => {
-            return elements.map((el) => ({
-              name: el.country,
-              value: el.participations.reduce(
-                (acc, element) => acc + element.medalsCount,
-                0
-              ),
-            }));
-          })
-        )
-        .subscribe((dataChart) => {
-          this.dataChart = dataChart;
-        })
+        .getDataPieChart()
+        .subscribe((data) => (this.dataChart = data))
     );
   }
 

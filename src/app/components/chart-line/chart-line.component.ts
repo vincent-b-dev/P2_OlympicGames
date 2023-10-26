@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, forkJoin } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/data-line-chart.model';
 import Olympic from 'src/app/core/models/olympic.model';
@@ -31,16 +31,14 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   public ngOnInit(): void {
-    this.subscriptionCheck = this.checkIsExist().subscribe((result) => {
-      if (result) {
-        this.getFullData();
-        this.getTotalMedals();
-        this.getTotalAthletes();
-        this.getDataChart();
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
+    this.subscriptionCheck = this.olympicService
+      .getOlymppicById(this.id)
+      .subscribe((result) => {
+        if (result) this.start();
+        else {
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   public ngOnDestroy(): void {
@@ -48,93 +46,26 @@ export class ChartLineComponent implements OnInit, OnDestroy {
     this.subscriptionCheck.unsubscribe();
   }
 
-  /**
-   * Vérifie si la donnée existe
-   * @returns Observable<boolean>
-   */
-  private checkIsExist(): Observable<boolean> {
-    return this.olympicService
-      .getOlymppicById(this.id)
-      .pipe(map((result) => Boolean(result)));
-  }
-
-  /**
-   * Récupère la donnée par son id dans l'url
-   */
-
-  private getFullData(): void {
+  private start(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {
         if (result) this.data = result;
       })
     );
-  }
-
-  /**
-   * Trie les données utiles pour créer le graphique
-   */
-  private getDataChart(): void {
     this.subscription.push(
-      this.olympicService.getOlymppicById(this.id).subscribe((result) => {
-        if (result) {
-          const dataSeriesChart = result.participations.map((element) => {
-            const dataForChart: { name: string; value: number } = {
-              value: element.medalsCount,
-              name: element.year.toString(),
-            };
-            return dataForChart;
-          });
-
-          this.dataChart = [
-            {
-              name: result.country,
-              series: dataSeriesChart,
-            },
-          ];
-        }
+      this.olympicService.getTotalMedals(this.id).subscribe((totalMedals) => {
+        if (totalMedals) this.totalMedals = totalMedals;
       })
     );
-  }
-
-  /**
-   * Récupère le nombre total d'athlètes
-   */
-  private getTotalAthletes(): void {
     this.subscription.push(
-      this.olympicService
-        .getOlymppicById(this.id)
-        .pipe(
-          map((olympicData) =>
-            olympicData?.participations.reduce(
-              (acc, val) => acc + val.athleteCount,
-              0
-            )
-          )
-        )
-        .subscribe((totalAthletes) => {
-          if (totalAthletes) this.totalAthletes = totalAthletes;
-        })
+      this.olympicService.getTotalAthletes(this.id).subscribe((totalAhlete) => {
+        if (totalAhlete) this.totalAthletes = totalAhlete;
+      })
     );
-  }
-
-  /**
-   * Récupère le nombre total de médailles
-   */
-  private getTotalMedals(): void {
     this.subscription.push(
-      this.olympicService
-        .getOlymppicById(this.id)
-        .pipe(
-          map((olympicData) =>
-            olympicData?.participations.reduce(
-              (acc, val) => acc + val.medalsCount,
-              0
-            )
-          )
-        )
-        .subscribe((totalMedals) => {
-          if (totalMedals) this.totalMedals = totalMedals;
-        })
+      this.olympicService.getDataLineChart(this.id).subscribe((data) => {
+        this.dataChart = data;
+      })
     );
   }
 }
