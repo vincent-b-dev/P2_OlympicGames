@@ -25,6 +25,10 @@ export class OlympicService {
     );
   }
 
+  /**
+   * Récupère l'intégralité des données
+   * @returns Observable<Olympic[]>
+   */
   getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
