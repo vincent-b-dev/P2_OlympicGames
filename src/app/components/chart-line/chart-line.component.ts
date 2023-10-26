@@ -2,8 +2,8 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import DataLineChart from 'src/app/core/models/data-line-chart';
-import Olympic from 'src/app/core/models/Olympic';
+import DataLineChart from 'src/app/core/models/data-line-chart.model';
+import Olympic from 'src/app/core/models/Olympic.model';
 
 @Component({
   selector: 'app-chart-line',

@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import Olympic from 'src/app/core/models/Olympic';
-import DataChart from '../../core/models/data-pie-chart';
+import Olympic from 'src/app/core/models/Olympic.model';
+import DataChart from '../../core/models/data-pie-chart.model';
 
 @Component({
   selector: 'app-chart-pie',
