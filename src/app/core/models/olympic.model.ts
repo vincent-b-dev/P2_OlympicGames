@@ -1,4 +1,4 @@
-import Participation from './Participation.model';
+import Participation from './participation.model';
 
 export default interface Olympic {
   id: number;

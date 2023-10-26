@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import Olympic from 'src/app/core/models/Olympic.model';
+import Olympic from 'src/app/core/models/olympic.model';
 import DataChart from '../../core/models/data-pie-chart.model';
 
 @Component({
@@ -35,25 +35,6 @@ export class ChartPieComponent implements OnDestroy {
 
   public ngOnDestroy() {
     this.subscription.forEach((element) => element.unsubscribe());
-  }
-
-  /**
-   * Récupère l'ID de l'élément sélectionné, puis redirige à la page detail.
-   * @param event
-   */
-
-  public goToDetail(event: {
-    name: string;
-    value: number;
-    label: string;
-  }): void {
-    const selectCountry = this.olympics.find(
-      (olympic) => olympic.country === event.name
-    );
-
-    if (selectCountry) {
-      this.router.navigate(['/detail', selectCountry.id]);
-    }
   }
 
   /**
@@ -108,5 +89,24 @@ export class ChartPieComponent implements OnDestroy {
           this.dataChart = dataChart;
         })
     );
+  }
+
+  /**
+   * Récupère l'ID de l'élément sélectionné, puis redirige à la page detail.
+   * @param event
+   */
+
+  public goToDetail(event: {
+    name: string;
+    value: number;
+    label: string;
+  }): void {
+    const selectCountry = this.olympics.find(
+      (olympic) => olympic.country === event.name
+    );
+
+    if (selectCountry) {
+      this.router.navigate(['/detail', selectCountry.id]);
+    }
   }
 }

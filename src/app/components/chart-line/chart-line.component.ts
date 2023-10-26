@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription, map } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/data-line-chart.model';
-import Olympic from 'src/app/core/models/Olympic.model';
+import Olympic from 'src/app/core/models/olympic.model';
 
 @Component({
   selector: 'app-chart-line',
