@@ -1,21 +1,18 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+Ce projet a été généré avec Angular CLI version 14.1.3 et a été mis à jour vers la version 16.2.5.
 
-Don't forget to install your node_modules before starting (`npm install`).
+N'oubliez pas d'installer vos modules Node.js avant de commencer (npm install).
 
-## Development server
+## Serveur de développement
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Exécutez ng serve pour lancer un serveur de développement. Accédez à http://localhost:4200/. L'application se rechargera automatiquement si vous modifiez l'un des fichiers source.
 
-## Build
+## Où commencer
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Comme vous pouvez le constater, une architecture a déjà été définie pour le projet.
+L'architecture prédéfinie inclut (en plus de l'architecture Angular par défaut) les éléments suivants :
 
-## Where to start
-
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
-
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+- Dossier `components` : contient tous les composants réutilisables.
+- Dossier `pages` : contient les composants utilisés pour la navigation.
+- Dossier `core` : contient la logique métier (dossiers services et models).
