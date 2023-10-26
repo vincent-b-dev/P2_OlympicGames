@@ -1,5 +1,5 @@
 header{
-    max-width: 40em;
+    max-width: 38em;
     margin: auto;
     margin-top: 2em;
     margin-bottom: 3em;
@@ -10,7 +10,7 @@ a{
 }
 
 #charts {
-    width: 80em;
+    width: 40em;
     margin: auto;
 }
 
@@ -71,4 +71,25 @@ p{
 h1 {
     font-size: 1.5em;
 }
+  }
+
+  @media screen and (min-width: 1400px)  {
+    #charts {
+        width: 80em;
+    
+    }
+  }
+
+  @media screen and (min-width: 1040px)  {
+    #charts {
+        width: 60em;
+    
+    }
+  }
+
+  @media screen and (max-width: 680px)  {
+    #charts {
+        width: 20em;
+    
+    }
   }

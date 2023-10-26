@@ -14,31 +14,66 @@ export class ChartPieComponent implements OnDestroy {
   olympics!: Olympic[];
   totalJo!: number;
   dataChart!: DataChart[];
-  colorScheme = 'cool';
-  /*colorScheme: any = {
-    domain: ['#956065', '#b8cbe7', '#89a1db', '#793d52', '#9780a1'],
-  };*/
 
-  subscription: Subscription = new Subscription();
+  colorScheme = [
+    { name: 'Italy', value: '#956065' },
+    { name: 'Spain', value: '#b8cbe7' },
+    { name: 'Germany', value: '#793d52' },
+    { name: 'United States', value: '#89a1db' },
+    { name: 'France', value: '#9780a1' },
+  ];
+
+  subscription: Subscription[] = [];
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getOlympicsData();
     this.getTotalJo();
     this.getDataChart();
   }
 
+  public ngOnDestroy() {
+    this.subscription.forEach((element) => element.unsubscribe());
+  }
+
+  /**
+   * Récupère l'ID de l'élément sélectionné, puis redirige à la page detail.
+   * @param event
+   */
+
+  public goToDetail(event: {
+    name: string;
+    value: number;
+    label: string;
+  }): void {
+    const selectCountry = this.olympics.find(
+      (olympic) => olympic.country === event.name
+    );
+
+    if (selectCountry) {
+      this.router.navigate(['/detail', selectCountry.id]);
+    }
+  }
+
+  /**
+   * Récupère les données à afficher
+   */
+
   private getOlympicsData(): void {
-    this.subscription.add(
+    this.subscription.push(
       this.olympicService
         .getOlympics()
         .subscribe((olympic) => (this.olympics = olympic))
     );
   }
 
+  /**
+   * Tri les données et récupère le total de participations aux Jeux olympiques
+   */
+
   private getTotalJo(): void {
-    this.subscription.add(
+    this.subscription.push(
       this.olympicService
         .getOlympics()
         .pipe(
@@ -50,8 +85,12 @@ export class ChartPieComponent implements OnDestroy {
     );
   }
 
+  /**
+   * Récupère les données pour les afficher dans le graphique
+   */
+
   private getDataChart(): void {
-    this.subscription.add(
+    this.subscription.push(
       this.olympicService
         .getOlympics()
         .pipe(
@@ -69,23 +108,5 @@ export class ChartPieComponent implements OnDestroy {
           this.dataChart = dataChart;
         })
     );
-  }
-
-  public goToDetail(event: {
-    name: string;
-    value: number;
-    label: string;
-  }): void {
-    const selectCountry = this.olympics.find(
-      (olympic) => olympic.country === event.name
-    );
-
-    if (selectCountry) {
-      this.router.navigate(['/detail', selectCountry.id]);
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

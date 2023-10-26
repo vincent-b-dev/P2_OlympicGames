@@ -15,7 +15,7 @@
 <div id="charts">
   <ngx-charts-pie-chart
     [results]="dataChart"
-    [scheme]="colorScheme"
+    [customColors]="colorScheme"
     [labels]="true"
     (select)="goToDetail($event)"
   >
