@@ -12,6 +12,6 @@ export class CountryDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.paramId = +this.route.snapshot.params['id'];
+    this.paramId = Number(this.route.snapshot.params['id']);
   }
 }

@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CountryDetailsComponent } from './pages/country-details/country-details.component';
 import { ChartPieComponent } from './components/chart-pie/chart-pie.component';
 import { ChartLineComponent } from './components/chart-line/chart-line.component';
+import { MedalsComponent } from './components/medal-svg/medals.component';
+import { ArrowSvgComponent } from './components/arrow-svg/arrow-svg.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { ChartLineComponent } from './components/chart-line/chart-line.component
     CountryDetailsComponent,
     ChartPieComponent,
     ChartLineComponent,
+    MedalsComponent,
+    ArrowSvgComponent,
   ],
   imports: [
     BrowserModule,

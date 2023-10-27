@@ -35,7 +35,7 @@ export class OlympicService {
     return this.olympics$.asObservable();
   }
 
-  //////////////////// Page Details ////////////////////
+  //////////////////// Composant Home ////////////////////
 
   /**
    * Tri les données et récupère le total de participations aux Jeux olympiques
@@ -65,7 +65,8 @@ export class OlympicService {
       })
     );
   }
-  //////////////////// Page Details ////////////////////
+
+  //////////////////// Composant Details ////////////////////
 
   /**
    * @param id Récupère le pays par son id
