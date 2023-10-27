@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription, map, forkJoin } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/data-line-chart.model';
 import Olympic from 'src/app/core/models/olympic.model';
@@ -19,33 +19,28 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   totalParticipations!: number;
   isExist!: boolean;
 
-  // options
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-
-  subscriptionCheck!: Subscription;
   subscription: Subscription[] = [];
 
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   public ngOnInit(): void {
-    this.subscriptionCheck = this.olympicService
-      .getOlymppicById(this.id)
-      .subscribe((result) => {
+    this.subscription.push(
+      this.olympicService.getOlymppicById(this.id).subscribe((result) => {
         if (result) this.start();
         else {
           this.router.navigate(['/']);
         }
-      });
+      })
+    );
   }
 
   public ngOnDestroy(): void {
     this.subscription.forEach((element) => element.unsubscribe());
-    this.subscriptionCheck.unsubscribe();
   }
 
+  /**
+   * Contient les services utiles au bon démarrage du composant
+   */
   private start(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {

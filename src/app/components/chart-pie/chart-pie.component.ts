@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Olympic from 'src/app/core/models/olympic.model';
 import DataChart from '../../core/models/data-pie-chart.model';
@@ -63,7 +63,6 @@ export class ChartPieComponent implements OnDestroy {
    * Récupère l'ID de l'élément sélectionné, puis redirige à la page detail.
    * @param event
    */
-
   public goToDetail(event: {
     name: string;
     value: number;
