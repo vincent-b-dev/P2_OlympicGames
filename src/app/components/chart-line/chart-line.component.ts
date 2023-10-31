@@ -26,7 +26,7 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {
-        if (result) this.start();
+        if (result) this.InitData();
         else {
           this.router.navigate(['/']);
         }
@@ -39,9 +39,9 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Contient les services utiles au bon démarrage du composant
+   * Initialise les données utiles au bon démarrage du composant
    */
-  private start(): void {
+  private InitData(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {
         if (result) this.data = result;
