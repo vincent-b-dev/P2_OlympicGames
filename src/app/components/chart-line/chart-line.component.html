@@ -1,27 +1,12 @@
-<header *ngIf="data">
-  <div class="title">
-    <a routerLink="/">
-      <!--SVG-->
-      <app-arrow-svg></app-arrow-svg>
-      <!--SVG-->
-    </a>
-    <h1>{{ data.country }}</h1>
-  </div>
-  <div id="count">
-    <div class="count">
-      <h3>Number of entries</h3>
-      <p>{{ data.participations.length }}</p>
-    </div>
-    <div class="count">
-      <h3>Total number medals</h3>
-      <p>{{ totalMedals }}</p>
-    </div>
-    <div class="count">
-      <h3>Total number of athletes</h3>
-      <p>{{ totalAthletes }}</p>
-    </div>
-  </div>
-</header>
+<div class="svg">
+  <!--SVG-->
+  <a routerLink="/">
+    <app-arrow-svg></app-arrow-svg>
+  </a>
+  <!--SVG-->
+</div>
+
+<app-header [header]="header"></app-header>
 <div id="charts">
   <ngx-charts-line-chart [yAxis]="true" [xAxis]="true" [results]="dataChart">
   </ngx-charts-line-chart>

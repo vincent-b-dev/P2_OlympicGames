@@ -1,19 +1,21 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import Olympic from 'src/app/core/models/olympic.model';
 import DataChart from '../../core/models/data-pie-chart.model';
+import Header from '../../core/models/header.model';
 
 @Component({
   selector: 'app-chart-pie',
   templateUrl: './chart-pie.component.html',
   styleUrls: ['./chart-pie.component.scss'],
 })
-export class ChartPieComponent implements OnDestroy {
+export class ChartPieComponent implements OnInit, OnDestroy {
   olympics!: Olympic[];
   totalJo!: number;
   dataChart!: DataChart[];
+  header!: Header;
 
   colorScheme = [
     { name: 'Italy', value: '#956065' },
@@ -28,7 +30,26 @@ export class ChartPieComponent implements OnDestroy {
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   public ngOnInit(): void {
-    this.start();
+    this.subscription.push(
+      this.olympicService.getOlympics().subscribe((result) => {
+        if (result) {
+          this.initData();
+          this.header = {
+            title: 'Medals per Country',
+            indicator: [
+              {
+                label: 'Number of JOs',
+                total: this.totalJo,
+              },
+              {
+                label: 'Number of countries',
+                total: this.olympics.length,
+              },
+            ],
+          };
+        }
+      })
+    );
   }
 
   public ngOnDestroy() {
@@ -36,10 +57,10 @@ export class ChartPieComponent implements OnDestroy {
   }
 
   /**
-   * La fonction 'start' contient toutes les fonctions du service nécessaires
+   * La fonction 'initData' contient toutes les fonctions du service nécessaires
    * pour le démarrage de la page d'accueil.
    */
-  private start(): void {
+  private initData(): void {
     this.subscription.push(
       this.olympicService
         .getTotalJo()

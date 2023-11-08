@@ -1,16 +1,4 @@
-<header>
-  <h1>Medals per Country</h1>
-  <div id="count">
-    <div class="count count1">
-      <h3>Number of JOs</h3>
-      <p>{{ totalJo }}</p>
-    </div>
-    <div class="count count2">
-      <h3>Number of countries</h3>
-      <p *ngIf="olympics">{{ olympics.length }}</p>
-    </div>
-  </div>
-</header>
+<app-header [header]="header"></app-header>
 
 <div id="charts">
   <ngx-charts-pie-chart

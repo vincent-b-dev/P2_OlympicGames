@@ -1,0 +1,11 @@
+<header>
+  <div class="title">
+    <h1>{{ header.title }}</h1>
+  </div>
+  <div id="count">
+    <div class="count" *ngFor="let data of header.indicator">
+      <h3>{{ data.label }}</h3>
+      <p>{{ data.total }}</p>
+    </div>
+  </div>
+</header>

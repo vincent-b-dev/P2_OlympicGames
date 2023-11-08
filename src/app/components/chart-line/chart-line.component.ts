@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import DataLineChart from 'src/app/core/models/data-line-chart.model';
-import Olympic from 'src/app/core/models/olympic.model';
+import Header from '../../core/models/header.model';
 
 @Component({
   selector: 'app-chart-line',
@@ -12,12 +12,13 @@ import Olympic from 'src/app/core/models/olympic.model';
 })
 export class ChartLineComponent implements OnInit, OnDestroy {
   @Input() id!: number;
-  data!: Olympic;
+  nameCountry!: string;
   dataChart!: DataLineChart[];
   totalMedals!: number;
   totalAthletes!: number;
   totalParticipations!: number;
   isExist!: boolean;
+  header!: Header;
 
   subscription: Subscription[] = [];
 
@@ -26,9 +27,24 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {
-        if (result) this.InitData();
-        else {
-          this.router.navigate(['/']);
+        if (result) {
+          this.InitData();
+          this.header = {
+            title: this.nameCountry,
+            indicator: [
+              {
+                label: 'Number of entries',
+                total: this.totalParticipations,
+              },
+              { label: 'Total number medals', total: this.totalMedals },
+              {
+                label: 'Total number of athletes',
+                total: this.totalAthletes,
+              },
+            ],
+          };
+        } else {
+          this.router.navigate(['/not-found']);
         }
       })
     );
@@ -44,7 +60,10 @@ export class ChartLineComponent implements OnInit, OnDestroy {
   private InitData(): void {
     this.subscription.push(
       this.olympicService.getOlymppicById(this.id).subscribe((result) => {
-        if (result) this.data = result;
+        if (result) {
+          this.nameCountry = result.country;
+          this.totalParticipations = result.participations.length;
+        }
       })
     );
     this.subscription.push(
