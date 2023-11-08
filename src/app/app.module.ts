@@ -13,6 +13,7 @@ import { ChartPieComponent } from './components/chart-pie/chart-pie.component';
 import { ChartLineComponent } from './components/chart-line/chart-line.component';
 import { MedalsComponent } from './components/medal-svg/medals.component';
 import { ArrowSvgComponent } from './components/arrow-svg/arrow-svg.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ArrowSvgComponent } from './components/arrow-svg/arrow-svg.component';
     ChartLineComponent,
     MedalsComponent,
     ArrowSvgComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
